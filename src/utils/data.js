@@ -34,4 +34,14 @@ const boardTitles = [
   'Brand new Project'
 ];
 
-module.exports = { userNames, userLogins, boardTitles };
+const descriptions = ['Lorem ipsum', 'Dolor sit amet', 'Such a beautiful day'];
+
+const columnTitles = ['To do', 'In progress', 'New', 'Done'];
+
+module.exports = {
+  userNames,
+  userLogins,
+  boardTitles,
+  columnTitles,
+  descriptions
+};

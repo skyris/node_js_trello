@@ -1,6 +1,7 @@
 const User = require('../resources/users/user.model');
 const Board = require('../resources/boards/board.model');
 const Task = require('../resources/tasks/task.model');
+const Column = require('../resources/columns/column.model');
 
 const db = {
   Users: [],
@@ -29,7 +30,9 @@ const db = {
   for (let i = 0; i < 3; i++) {
     db.Users.push(new User());
   }
-  const board = new Board();
+
+  const columns = [new Column(), new Column({ order: 1 })];
+  const board = new Board({ columns });
   db.Boards.push(board);
   db.Tasks.push(
     new Task({ boardId: board.id }),
