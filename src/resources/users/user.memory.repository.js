@@ -16,7 +16,8 @@ const read = async id => {
 };
 
 const remove = async id => {
-  if (!(await DB.remove(TABLE_NAME, id))) {
+  const user = await DB.remove(TABLE_NAME, id);
+  if (!user) {
     throw new NOT_FOUND_ERROR(`Couldn't find a user with id: ${id}`);
   }
 };

@@ -1,16 +1,15 @@
 const tasksRepo = require('./task.memory.repository');
-const Task = require('./task.model');
 
-const readAll = () => tasksRepo.readAll();
+const find = propsObject => tasksRepo.find(propsObject);
 
-const read = id => tasksRepo.read(id);
+const findOne = propsObject => tasksRepo.findOne(propsObject);
 
-const remove = id => tasksRepo.remove(id);
+const remove = propsObject => tasksRepo.remove(propsObject);
 
 const create = task => {
-  return tasksRepo.create(new Task(task));
+  return tasksRepo.create(task);
 };
 
-const update = (id, task) => tasksRepo.update(id, task);
+const update = (propsObject, task) => tasksRepo.update(propsObject, task);
 
-module.exports = { readAll, read, remove, create, update };
+module.exports = { find, findOne, remove, create, update };
