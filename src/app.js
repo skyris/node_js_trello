@@ -6,6 +6,7 @@ const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
 const taskRouter = require('./resources/tasks/task.router');
 const errorHandle = require('./errors/errorHandle');
+const logger = require('./common/logger');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -27,5 +28,13 @@ app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 
 app.use(errorHandle);
+
+process.on('unhandledRejection', (reason, err) => {
+  console.error('Unhandled Rejection at Promise \n', err);
+  logger.error(`UnhandledRejection: ${reason.stack}`);
+});
+process.on('uncaughtException', err => {
+  console.error(err.stack);
+});
 
 module.exports = app;
