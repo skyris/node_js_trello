@@ -23,6 +23,19 @@ class User {
   static fromRequest(body) {
     return new User(body);
   }
+
+  update(body) {
+    const { name, login, password } = body;
+    if (name !== undefined && this.name !== name) {
+      this.name = name;
+    }
+    if (login !== undefined && this.login !== login) {
+      this.login = login;
+    }
+    if (password !== undefined && this.password !== password) {
+      this.password = password;
+    }
+  }
 }
 
 module.exports = User;

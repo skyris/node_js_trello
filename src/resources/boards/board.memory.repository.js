@@ -25,10 +25,12 @@ const create = async board => {
   return DB.create(TABLE_NAME, board);
 };
 
-const update = async (id, board) => {
-  const element = await DB.update(TABLE_NAME, id, board);
+const update = async (propsObject, userData) => {
+  const element = await DB.update(TABLE_NAME, propsObject, userData);
   if (!element) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a board with id: ${id}`);
+    throw new NOT_FOUND_ERROR(
+      `Couldn't find a board with id: ${propsObject.id}`
+    );
   }
 
   return element;

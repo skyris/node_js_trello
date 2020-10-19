@@ -10,6 +10,8 @@ const create = user => {
   return usersRepo.create(user);
 };
 
-const update = (id, user) => usersRepo.update(id, user);
+const update = (propsObject, userData) => {
+  return usersRepo.update(propsObject, userData);
+};
 
 module.exports = { readAll, read, remove, create, update };

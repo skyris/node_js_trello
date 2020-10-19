@@ -33,10 +33,8 @@ router.route('/').post(
 
 router.route('/:id').put(
   wrapAsync(async (req, res) => {
-    const user = await usersService.update(
-      req.params.id,
-      User.fromRequest({ ...req.body, id: req.params.id })
-    );
+    const { id } = req.params;
+    const user = await usersService.update({ id }, req.body);
     res.status(200).send(User.toResponse(user));
   })
 );

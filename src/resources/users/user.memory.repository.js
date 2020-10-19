@@ -26,10 +26,12 @@ const create = async user => {
   return DB.create(TABLE_NAME, user);
 };
 
-const update = async (id, user) => {
-  const element = await DB.update(TABLE_NAME, id, user);
+const update = async (propsObject, userData) => {
+  const element = await DB.update(TABLE_NAME, propsObject, userData);
   if (!element) {
-    throw new NOT_FOUND_ERROR(`Couldn't find a user with id: ${id}`);
+    throw new NOT_FOUND_ERROR(
+      `Couldn't find a user with id: ${propsObject.id}`
+    );
   }
 
   return element;

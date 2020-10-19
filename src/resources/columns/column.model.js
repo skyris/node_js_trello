@@ -21,6 +21,16 @@ class Column {
   static fromRequest(body) {
     return new Column(body);
   }
+
+  merge(body) {
+    const { title, order } = body;
+    if (title !== undefined && this.title !== title) {
+      this.title = title;
+    }
+    if (order !== undefined && this.order !== order) {
+      this.order = order;
+    }
+  }
 }
 
 module.exports = Column;

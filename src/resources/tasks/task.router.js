@@ -44,13 +44,7 @@ router.route('/').post(
 router.route('/:id').put(
   wrapAsync(async (req, res) => {
     const { boardId, id } = req.params;
-    const task = await tasksService.update(
-      { boardId, id },
-      Task.fromRequest({
-        ...req.body,
-        id
-      })
-    );
+    const task = await tasksService.update({ boardId, id }, req.body);
     res.status(200).send(Task.toResponse(task));
   })
 );

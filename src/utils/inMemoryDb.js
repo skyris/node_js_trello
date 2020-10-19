@@ -110,14 +110,13 @@ const create = async (tableName, element) => {
   return read(tableName, element.id);
 };
 
-const update = async (tableName, id, element) => {
-  const oldElement = read(tableName, id);
+const update = async (tableName, propsObject, newData) => {
+  const oldElement = filterByProperties(tableName, propsObject)[0];
   if (oldElement) {
-    const index = db[tableName].findIndex(el => el.id === id);
-    db[tableName][index] = element;
+    oldElement.update(newData);
   }
 
-  return read(tableName, id);
+  return read(tableName, propsObject.id);
 };
 
 module.exports = {
@@ -126,6 +125,5 @@ module.exports = {
   remove,
   create,
   update,
-  filterByProperties,
-  db
+  filterByProperties
 };

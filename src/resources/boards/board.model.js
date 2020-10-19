@@ -32,6 +32,24 @@ class Board {
     });
     return board;
   }
+
+  update(body) {
+    const { title, columns } = body;
+    if (title !== undefined && this.title !== title) {
+      this.title = title;
+    }
+    if (columns !== undefined && Array.isArray(columns)) {
+      for (const column of this.columns) {
+        columns
+          .filter(col => col.id)
+          .forEach(col => {
+            if (col.id === column.id) {
+              column.merge(col);
+            }
+          });
+      }
+    }
+  }
 }
 
 module.exports = Board;

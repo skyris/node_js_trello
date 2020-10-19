@@ -10,6 +10,8 @@ const create = task => {
   return tasksRepo.create(task);
 };
 
-const update = (propsObject, task) => tasksRepo.update(propsObject, task);
+const update = (propsObject, taskData) => {
+  return tasksRepo.update(propsObject, taskData);
+};
 
 module.exports = { find, findOne, remove, create, update };

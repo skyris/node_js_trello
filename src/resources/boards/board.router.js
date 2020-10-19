@@ -33,10 +33,8 @@ router.route('/').post(
 
 router.route('/:id').put(
   wrapAsync(async (req, res) => {
-    const board = await boardsService.update(
-      req.params.id,
-      Board.fromRequest({ ...req.body, id: req.params.id })
-    );
+    const { id } = req.params;
+    const board = await boardsService.update({ id }, req.body);
     res.status(200).send(Board.toResponse(board));
   })
 );

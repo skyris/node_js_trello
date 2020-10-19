@@ -9,14 +9,6 @@ function wrapRoute(fn) {
     if (result && result.catch) {
       result.catch(next);
     }
-    // try {
-    //   const result = fn(req, res, next); // result is Promise
-    //   if (result && result.catch) {
-    //     result.catch(next);
-    //   }
-    // } catch (err) {
-    //   next(err);
-    // }
   };
 }
 

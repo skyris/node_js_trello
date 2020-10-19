@@ -12,18 +12,6 @@ const findOne = async propsObject => {
   return tasks[0];
 };
 
-// const read = async (boardId, id) => {
-//   const tasks = await find({ boardId, id });
-//   const task = tasks.filter(t => t.id === id);
-//   if (!task.length) {
-//     throw new NOT_FOUND_ERROR(`Couldn't find a task with id ${id}`);
-//   } else if (task.length > 1) {
-//     throw Error('The DB data is wrong!');
-//   }
-
-//   return task[0];
-// };
-
 const remove = async propsObject => {
   await DB.filterByProperties(TABLE_NAME, propsObject);
   await DB.remove(TABLE_NAME, propsObject.id);
@@ -33,9 +21,8 @@ const create = async (boardId, task) => {
   return DB.create(TABLE_NAME, boardId, task);
 };
 
-const update = async (propsObject, task) => {
-  await DB.filterByProperties(TABLE_NAME, propsObject);
-  const element = await DB.update(TABLE_NAME, propsObject.id, task);
+const update = async (propsObject, taskData) => {
+  const element = await DB.update(TABLE_NAME, propsObject, taskData);
   if (!element) {
     throw new NOT_FOUND_ERROR(
       `Couldn't find a task with id: ${propsObject.id}`
