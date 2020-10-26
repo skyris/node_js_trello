@@ -26,10 +26,17 @@ router.route('/:id').delete(
 
 router.route('/').post(
   wrapAsync(async (req, res) => {
-    const user = await usersService.create(User.fromRequest(req.body));
+    const user = await usersService.create(req.body);
     res.status(200).send(User.toResponse(user));
   })
 );
+
+// router.route('/').post(
+//   wrapAsync(async (req, res) => {
+//     const user = await usersService.create(User.fromRequest(req.body));
+//     res.status(200).send(User.toResponse(user));
+//   })
+// );
 
 router.route('/:id').put(
   wrapAsync(async (req, res) => {

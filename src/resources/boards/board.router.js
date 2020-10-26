@@ -26,7 +26,7 @@ router.route('/:id').delete(
 
 router.route('/').post(
   wrapAsync(async (req, res) => {
-    const board = await boardsService.create(Board.fromRequest(req.body));
+    const board = await boardsService.create(req.body);
     res.status(200).send(Board.toResponse(board));
   })
 );

@@ -34,7 +34,11 @@ const boardTitles = [
   'Brand new Project'
 ];
 
-const descriptions = ['Lorem ipsum', 'Dolor sit amet', 'Such a beautiful day'];
+const taskDescriptions = [
+  'Lorem ipsum',
+  'Dolor sit amet',
+  'Such a beautiful day'
+];
 
 const columnTitles = ['To do', 'In progress', 'New', 'Done'];
 
@@ -43,5 +47,5 @@ module.exports = {
   userLogins,
   boardTitles,
   columnTitles,
-  descriptions
+  taskDescriptions
 };
