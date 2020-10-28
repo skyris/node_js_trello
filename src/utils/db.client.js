@@ -83,9 +83,9 @@ const connectToDB = cb => {
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', () => {
-    console.log("we're connected!");
+    console.log('DB is connected!');
   });
-  db.dropDatabase();
+  // db.dropDatabase();
   initiateData();
   cb();
 };

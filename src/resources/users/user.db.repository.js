@@ -1,5 +1,6 @@
 const NOT_FOUND_ERROR = require('../../errors/appError');
-const User = require('../users/user.model');
+const User = require('./user.model');
+const Task = require('../tasks/task.model');
 
 const readAll = async () => {
   return User.find({});
@@ -18,6 +19,10 @@ const remove = async id => {
   const output = await User.deleteOne({ _id: id });
   if (!output.deletedCount) {
     throw new NOT_FOUND_ERROR(`Couldn't find a user with id: ${id}`);
+  }
+  const outputTask = await Task.updateMany({ userId: id }, { userId: null });
+  if (!outputTask.ok) {
+    throw new NOT_FOUND_ERROR(`Couldn't update tasks with user id: ${id}`);
   }
 
   return output;
