@@ -1,5 +1,6 @@
 const NOT_FOUND_ERROR = require('../../errors/appError');
 const Board = require('./board.model');
+const Task = require('../tasks/task.model');
 
 const readAll = async () => {
   return Board.find({});
@@ -15,9 +16,13 @@ const read = async id => {
 };
 
 const remove = async id => {
-  const output = await Board.remove({ _id: id });
+  const output = await Board.deleteOne({ _id: id });
   if (!output.deletedCount) {
     throw new NOT_FOUND_ERROR(`Couldn't find a board with id: ${id}`);
+  }
+  const taskOutput = await Task.deleteMany({ boardId: id });
+  if (!taskOutput.ok) {
+    throw new NOT_FOUND_ERROR(`Couldn't delete tasks in board with id: ${id}`);
   }
 
   return output;
