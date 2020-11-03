@@ -15,6 +15,21 @@ const read = async id => {
   return output;
 };
 
+const findByProps = async props => {
+  const output = await User.findOne(props);
+  if (!output) {
+    const propsString = Object.entries(props)
+      .map(prop => {
+        const [key, value] = prop;
+        return `${key}: ${value}`;
+      })
+      .join(', ');
+    throw new NOT_FOUND_ERROR(`Couldn't find a user with ${propsString}`);
+  }
+
+  return output;
+};
+
 const remove = async id => {
   const output = await User.deleteOne({ _id: id });
   if (!output.deletedCount) {
@@ -42,4 +57,11 @@ const update = async (propsObject, userData) => {
   return User.findOne({ _id: id });
 };
 
-module.exports = { readAll, read, remove, create, update };
+module.exports = {
+  readAll,
+  read,
+  remove,
+  create,
+  update,
+  findByProps
+};

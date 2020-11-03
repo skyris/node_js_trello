@@ -81,13 +81,13 @@ const connectToDB = cb => {
     useUnifiedTopology: true
   });
   const db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
+  db.on('error', err => console.error(`Connection error: ${err.message}`));
   db.once('open', () => {
     console.log('DB is connected!');
+    // db.dropDatabase();
+    initiateData();
+    cb();
   });
-  // db.dropDatabase();
-  initiateData();
-  cb();
 };
 
 module.exports = { connectToDB };

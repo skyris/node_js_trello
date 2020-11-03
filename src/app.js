@@ -5,8 +5,10 @@ const YAML = require('yamljs');
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
 const taskRouter = require('./resources/tasks/task.router');
+const loginRouter = require('./resources/login/login.router');
 const errorHandle = require('./errors/errorHandle');
 const logger = require('./common/logger');
+const checkToken = require('./utils/auth/checkToken');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -23,9 +25,12 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/', checkToken);
+
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
+app.use('/login', loginRouter);
 
 app.use(errorHandle);
 
