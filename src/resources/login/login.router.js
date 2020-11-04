@@ -9,7 +9,7 @@ router.route('/').post(
     if (!token) {
       res.status(403).send('Wrong login/password combination');
     } else {
-      res.status(200).json(token);
+      res.status(200).json({ token });
     }
   })
 );

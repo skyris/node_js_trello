@@ -27,10 +27,10 @@ app.use('/', (req, res, next) => {
 
 app.use('/', checkToken);
 
+app.use('/login', loginRouter);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
-app.use('/login', loginRouter);
 
 app.use(errorHandle);
 

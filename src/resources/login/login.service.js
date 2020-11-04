@@ -5,11 +5,9 @@ const { JWT_SECRET_KEY } = require('../../common/config');
 
 const signToken = async (login, password) => {
   const user = await loginRepo.read(login);
-  console.log('user: ', user);
   if (!user) return null;
 
   const comparisonRes = await checkHash(password, user.password);
-  console.log('comparisonRes: ', comparisonRes);
   if (!comparisonRes) return null;
 
   const { id } = user;

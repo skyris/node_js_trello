@@ -1,24 +1,20 @@
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET_KEY } = require('../../common/config');
-
-const PATH_WHITELIST = ['/', '/doc', '/login'];
+const { JWT_SECRET_KEY, PATH_WHITELIST } = require('../../common/config');
+const logger = require('../../common/logger');
 
 module.exports = (req, res, next) => {
   if (PATH_WHITELIST.includes(req.path)) return next();
-  const authHeader = req.header('Authorization');
-
-  if (authHeader !== undefined) {
+  try {
+    const authHeader = req.header('Authorization');
     const [type, token] = authHeader.split(' ');
     if (type !== 'Bearer') {
-      res.status(401).send('Wrong auth schema!');
-    } else {
-      const result = jwt.verify(token, JWT_SECRET_KEY);
-
-      if (result) {
-        return next();
-      }
+      throw Error('Wrong auth schema');
     }
-  }
+    const result = jwt.verify(token, JWT_SECRET_KEY);
 
-  res.status(401).send('Unauthorized user!');
+    if (result) return next();
+  } catch (e) {
+    logger.writeError(e.stack, req);
+    res.status(401).send('Unauthorized user!');
+  }
 };
